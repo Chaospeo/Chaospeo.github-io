@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>排序 | 人生就四个字</title><meta name="author" content="Chaospeo"><meta name="copyright" content="Chaospeo"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简介  排序算法（英语：Sorting algorithm）是一种将一组特定的数据按某种顺序进行排列的算法。排序算法多种多样，性质也大多不同。   排序算法的种类很多，例如选择排序，冒泡排序，插入排序，基数排序，快速排序，归并排序，堆排序，桶排序……   不同种类的排序算法用途一般不同，不过最常用的无非就是快速排序和sort函数排序，后者更是基本适用所有情况，接下来我要介绍的几种排序算法中也会着重">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序">
+<meta property="og:url" content="http://example.com/2024/03/17/%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="人生就四个字">
+<meta property="og:description" content="简介  排序算法（英语：Sorting algorithm）是一种将一组特定的数据按某种顺序进行排列的算法。排序算法多种多样，性质也大多不同。   排序算法的种类很多，例如选择排序，冒泡排序，插入排序，基数排序，快速排序，归并排序，堆排序，桶排序……   不同种类的排序算法用途一般不同，不过最常用的无非就是快速排序和sort函数排序，后者更是基本适用所有情况，接下来我要介绍的几种排序算法中也会着重">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpg">
+<meta property="article:published_time" content="2024-03-17T11:56:49.000Z">
+<meta property="article:modified_time" content="2024-05-21T14:58:18.294Z">
+<meta property="article:author" content="Chaospeo">
+<meta property="article:tag" content="入门">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/03/17/%E6%8E%92%E5%BA%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '排序',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-21 22:58:18'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="人生就四个字"><span class="site-name">人生就四个字</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">排序</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-17T11:56:49.000Z" title="发表于 2024-03-17 19:56:49">2024-03-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-21T14:58:18.294Z" title="更新于 2024-05-21 22:58:18">2024-05-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="排序"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>  <strong>排序算法</strong>（英语：Sorting algorithm）是一种将一组特定的数据按某种顺序进行排列的算法。排序算法多种多样，性质也大多不同。</p>
+<p>  排序算法的种类很多，例如选择排序，冒泡排序，插入排序，基数排序，快速排序，归并排序，堆排序，桶排序……</p>
+<p>  不同种类的排序算法用途一般不同，不过最常用的无非就是快速排序和sort函数排序，后者更是基本适用所有情况，接下来我要介绍的几种排序算法中也会着重介绍他们。</p>
+<h2 id="选择排序和冒泡排序"><a href="#选择排序和冒泡排序" class="headerlink" title="选择排序和冒泡排序"></a>选择排序和冒泡排序</h2><p>  选择排序是一种十分直观的排序算法，大概就是在第i次循环中选中未排序元素中最小的元素，将其放到数组第i位，并进入下一轮寻找最小元素的循环中。</p>
+<p>  大致代码如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;iostream&quot;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n=<span class="number">4</span>;</span><br><span class="line">	<span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="comment">//前n-1个元素排序完了，第n个元素就自动排序好了，并且这里数组下标从0开始，故循环至n-1</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">		<span class="type">int</span> mi=a[i],xb=i; <span class="comment">//设置最小值和最小值元素对应下标 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">			<span class="keyword">if</span>(a[j]&lt;mi)&#123;</span><br><span class="line">				mi=a[j];</span><br><span class="line">				xb=j;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="comment">//交换元素 </span></span><br><span class="line">		<span class="type">int</span> tmp=a[i];</span><br><span class="line">		a[i]=a[xb];</span><br><span class="line">		a[xb]=tmp; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">		cout&lt;&lt;a[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  这段代码运行结果如下：</p>
+<p>  1 3 4 5 9</p>
+<p>  可以看到，数组元素被正确排序了，尽管如此，选择排序并不是最符合我们要求的算法。</p>
+<p>  原因有二：</p>
+<p>  其一，不稳定性。选择排序的结果是对的，但是过程中数组元素并不是有序的，例如上述代码，最初数组元素为 1 5 4 9 3，第一轮排序，1是最小，数组元素相对大小顺序不会发生改变，但第二轮排序，3是最小，与5交换，数组元素变成1 3 4 9 5，5应该在9之前才是有序的，但在这里变成了5在9后面，打乱了未排序元素的相对大小顺序。</p>
+<p>  其二，糟糕的时间复杂度，可以看到，在代码中我们使用了两个循环，并且循环次数都可以近似看成n，也就是说，选择排序的时间复杂度是O(n²)，对于元素有几十万甚至更多的数组，排序时间是远远超出了限定时间的。</p>
+<p>  同样，冒泡排序的时间复杂度也是O(n²)，但它与选择排序不同的是，选择排序每轮寻找最小值，冒泡排序每轮寻找最大值。</p>
+<p>  代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;iostream&quot;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n=<span class="number">4</span>;</span><br><span class="line">	<span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">3</span>&#125;;</span><br><span class="line">	<span class="comment">//最外轮循环代表循环次数 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="comment">//如果有i-1个元素排序好了，后面i个元素就不用再遍历了 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n-i;j++)</span><br><span class="line">			<span class="comment">//相邻元素比较大小交换 </span></span><br><span class="line">			<span class="keyword">if</span>(a[j]&gt;a[j+<span class="number">1</span>])&#123;</span><br><span class="line">				<span class="type">int</span> tmp=a[j];</span><br><span class="line">				a[j]=a[j+<span class="number">1</span>];</span><br><span class="line">				a[j+<span class="number">1</span>]=tmp;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">		cout&lt;&lt;a[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  结果显然易见:1 3 4 5 9。</p>
+<p>  为什么叫冒泡排序呢？如果第一个元素最大，那他在第一轮排序与每个相邻元素都要交换，最后成为数组最后一位元素，这一轮排序全部操作列出来，第一个元素就像在逐渐沉底，那它反过来就是逐渐上升，像气泡逐渐上升冒出水面，故曰：冒泡排序。</p>
+<p>  选择排序具有不稳定性，但冒泡排序却具有稳定性，因为一定是比当前元素大的元素排在当前元素右边，原本相对大小顺序并不会改变。</p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>  重头戏登场，没有时间为选择排序和冒泡排序的超时哀悼，随之赶到OJ的是——快速排序。</p>
+<p>  快速排序从两头同时排序，采用分治方法，最优情况下稳定的O(nlogn)时间复杂度简直薄纱上面两个排序算法，虽然最坏情况下时间复杂度仍是O(n²)，但在使用情况中基本不可能出现最坏情况，可以说它的时间复杂度就是O(nlogn)。</p>
+<p>  快排的思路就是：选中当前数组左端点i&#x3D;l和右端点j&#x3D;r以及分界点元素a[(l+r)&#x2F;2]也就是最中间的元素，每次用while寻找i到中点的第一个大于分界点的元素，再用while循环寻找j到中点的第一个小于分界点的元素，如果i和j没有越过中点即i&lt;&#x3D;j，交换他们的值，排序完后，左端点到中点的元素都小于分界点，中点到右端点的元素都大于分界点，但是，他们这时还不是有序的，比如2 1 3 4 8 9 7，那怎么办呢？那还不简单，接着排序呗，这时排序就不用从最开始的左端点到右端点排序了，之前j–,如果j没有超过左端点l,那我们就可以把j作为右端点，同理如果i没有超过右端点r，i就可以作为新的左端点，调用自身，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">qsort</span><span class="params">(<span class="type">int</span> a[],<span class="type">int</span> l,<span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=l,j=r,mid=a[(i+j)/<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">do</span>&#123;</span><br><span class="line">		<span class="keyword">while</span>(a[j]&gt;mid) j--;</span><br><span class="line">		<span class="keyword">while</span>(a[i]&lt;mid) i++;</span><br><span class="line">		<span class="keyword">if</span>(i&lt;=j)&#123;</span><br><span class="line">			<span class="type">int</span> temp=a[j];</span><br><span class="line">			a[j]=a[i];</span><br><span class="line">			a[i]=temp;</span><br><span class="line">			i++;</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">while</span>(i&lt;=j);</span><br><span class="line">	<span class="keyword">if</span>(i&lt;r) <span class="built_in">qsort</span>(a,i,r);</span><br><span class="line">	<span class="keyword">if</span>(l&lt;j) <span class="built_in">qsort</span>(a,l,j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得一提,qsort(num, n, sizeof(int), cmp)是stdlib.h头文件内的函数,也是c语言中唯二涉及算法的函数,另一个是二分，这里不讲喵。</p>
+<h2 id="sort函数排序"><a href="#sort函数排序" class="headerlink" title="sort函数排序"></a>sort函数排序</h2><p>经典中的经典，algorithm头文件中自带的排序函数，适用范围极广，只要有排序的地方他就能排上用场，犹如亚里士多德般的全能感，令我的大脑旋转。</p>
+<p>sort函数由快排和堆排优化实现，时间复杂度稳定在nlogn,使用起来十分方便，格式如下:</p>
+<p>sort(begin, end, cmp)</p>
+<p>总共有三个参数，前面两个分别代表待排序数组的开头和结尾，并不一定是0到n-1或者1到n，你可以做到数组中间排序而前后不排序，第三个参数是排序准则，这个参数可以把你自定义的函数加进去，比如说sort函数默认从小到大排序，如果你想要从大到小排序，可以自定义一个cmp函数，如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//这里也可以是int类型 </span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x&gt;y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//设置两个相同的数组 </span></span><br><span class="line">	<span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="type">int</span> b[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>&#125;;</span><br><span class="line">	<span class="comment">//a数组用原本的sort函数排序 </span></span><br><span class="line">	<span class="built_in">sort</span>(a,a+<span class="number">5</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">		cout&lt;&lt;a[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line">	<span class="comment">//b数组用加了自定义函数的sort函数排序 </span></span><br><span class="line">	<span class="built_in">sort</span>(b,b+<span class="number">5</span>,cmp);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">		cout&lt;&lt;b[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果如下：</p>
+<p><img src="/../../../Hexo-blog/source/_posts/%E6%8E%92%E5%BA%8F/%E8%BE%93%E5%87%BA-1716303480087.png" alt="输出"></p>
+<p>可以看到，b数组实现了我们所要的从大到小排序。</p>
+<h3 id="sort函数对结构体排序"><a href="#sort函数对结构体排序" class="headerlink" title="sort函数对结构体排序"></a>sort函数对结构体排序</h3><p>上面提到sort函数适用范围很广，对结构体也不例外，但结构体内包含多个变量，该如何进行排序呢？</p>
+<p>很简单，我们照样自定义一个cmp函数，确定一个变量或者多个变量作为排序标准，这时候cmp函数的参数就是结构体了。</p>
+<p>例如，我手上有一批学生的姓名，学号和成绩，我想把他们成绩从大到小排序，如果成绩相同，学号小的优先，那么，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">student</span>&#123;</span><br><span class="line">	<span class="comment">//学号一般都是八位或者八位以上，用int可能会爆，用long long太占空间，所以用字符串表示 </span></span><br><span class="line">	string name,xuehao;</span><br><span class="line">	<span class="type">int</span> score;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(student x,student y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x.score!=y.score)</span><br><span class="line">		<span class="keyword">return</span> x.score&gt;y.score;</span><br><span class="line">	<span class="comment">//字符串也是可以比较的，通过比较第一个不相同字符的字典序来判断大小 </span></span><br><span class="line">	<span class="keyword">return</span> x.xuehao&lt;y.xuehao;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	student a[<span class="number">4</span>];</span><br><span class="line">	<span class="comment">//设置四个学生信息 </span></span><br><span class="line">	a[<span class="number">0</span>].name=<span class="string">&quot;dingbudele&quot;</span>,a[<span class="number">0</span>].xuehao=<span class="string">&quot;114515&quot;</span>,a[<span class="number">0</span>].score=<span class="number">750</span>;</span><br><span class="line">	a[<span class="number">1</span>].name=<span class="string">&quot;ewoji&quot;</span>,a[<span class="number">1</span>].xuehao=<span class="string">&quot;114514&quot;</span>,a[<span class="number">1</span>].score=<span class="number">750</span>;</span><br><span class="line">	a[<span class="number">2</span>].name=<span class="string">&quot;niganma&quot;</span>,a[<span class="number">2</span>].xuehao=<span class="string">&quot;114511&quot;</span>,a[<span class="number">2</span>].score=<span class="number">666</span>;</span><br><span class="line">	a[<span class="number">3</span>].name=<span class="string">&quot;zhendeshinia&quot;</span>,a[<span class="number">3</span>].xuehao=<span class="string">&quot;114512&quot;</span>,a[<span class="number">3</span>].score=<span class="number">99</span>;</span><br><span class="line">	<span class="built_in">sort</span>(a,a+<span class="number">4</span>,cmp);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">		cout&lt;&lt;a[i].name&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;a[i].xuehao&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;a[i].score&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果如下：</p>
+<p><img src="/../../../Hexo-blog/source/_posts/%E6%8E%92%E5%BA%8F/%E7%BB%93%E6%9E%84%E4%BD%93%E6%8E%92%E5%BA%8F%E8%BE%93%E5%87%BA-1716303485708.png" alt="结构体排序输出"></p>
+<p>可以看到成绩高的在前面，并且成绩相同时学号小的在前面喵，恭喜学号为114514的同学夺得第一，OVO。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Chaospeo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/03/17/%E6%8E%92%E5%BA%8F/">http://example.com/2024/03/17/%E6%8E%92%E5%BA%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">人生就四个字</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%A5%E9%97%A8/">入门</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/09/%E5%A4%B1%E8%B4%A5/" title="失败"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">失败</div></div></a></div><div class="next-post pull-right"><a href="/2024/03/10/%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" title="最短路问题（持续更新）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">最短路问题（持续更新）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/03/08/%E7%81%B5%E5%85%89%E4%B8%80%E9%97%AA-%E5%AF%B9%E9%A1%B6%E6%A0%88/" title="灵光一闪--对顶栈"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-08</div><div class="title">灵光一闪--对顶栈</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chaospeo</div><div class="author-info__description">一起加入睡大觉的队伍</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E5%92%8C%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">选择排序和冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort%E5%87%BD%E6%95%B0%E6%8E%92%E5%BA%8F"><span class="toc-number">4.</span> <span class="toc-text">sort函数排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sort%E5%87%BD%E6%95%B0%E5%AF%B9%E7%BB%93%E6%9E%84%E4%BD%93%E6%8E%92%E5%BA%8F"><span class="toc-number">4.1.</span> <span class="toc-text">sort函数对结构体排序</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/09/%E5%A4%B1%E8%B4%A5/" title="失败">失败</a><time datetime="2024-05-09T13:24:41.000Z" title="发表于 2024-05-09 21:24:41">2024-05-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/17/%E6%8E%92%E5%BA%8F/" title="排序">排序</a><time datetime="2024-03-17T11:56:49.000Z" title="发表于 2024-03-17 19:56:49">2024-03-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/10/%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" title="最短路问题（持续更新）">最短路问题（持续更新）</a><time datetime="2024-03-10T04:23:52.000Z" title="发表于 2024-03-10 12:23:52">2024-03-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/08/%E7%81%B5%E5%85%89%E4%B8%80%E9%97%AA-%E5%AF%B9%E9%A1%B6%E6%A0%88/" title="灵光一闪--对顶栈">灵光一闪--对顶栈</a><time datetime="2024-03-08T11:06:04.000Z" title="发表于 2024-03-08 19:06:04">2024-03-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Chaospeo</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
